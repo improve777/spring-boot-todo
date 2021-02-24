@@ -1,6 +1,7 @@
 package com.improve777.remindertodo
 
 import com.improve777.remindertodo.service.TodoService
+import com.improve777.remindertodo.service.UserService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -12,4 +13,7 @@ fun main(args: Array<String>) {
 
     val todoService = context.getBean(TodoService::class.java)
     todoService.findTodoInfo()
+
+    val userService = context.getBean(UserService::class.java)
+    userService.findUserInfo()
 }
