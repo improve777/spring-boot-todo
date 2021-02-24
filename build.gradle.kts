@@ -31,6 +31,15 @@ dependencies {
 
     // swagger 와 hateoas 충돌 문제
     implementation("org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE")
+
+    // ORM
+    implementation("org.slf4j:slf4j-api:1.7.7")
+    implementation("org.hibernate:hibernate-validator:6.0.18.Final")
+    implementation("javax.el:javax.el-api:3.0.0")
+    implementation("javax.validation:validation-api:2.0.1.Final")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // 로컬 런타임 테스트용 DB
+    runtimeOnly("org.hsqldb", "hsqldb", "2.3.2")
 }
 
 tasks.withType<KotlinCompile> {

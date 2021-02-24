@@ -16,25 +16,18 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class TodoController {
 
-    val todos = mutableListOf(
-        Todo(1, "장보기"),
-        Todo(2, "청소하기"),
-        Todo(3, "계획세우기"),
-        Todo(4, "글쓰기"),
-    )
-
     @GetMapping("/todos/{id}")
     fun getTodosByUserId(
         @PathVariable("id") id: Long,
     ): ResponseEntity<BaseResponse<List<Todo>>> {
-        todos.forEach {
-            it.add(Link.of("$HOST/todos/${it.id}"))
-        }
+//        todos.forEach {
+//            it.add(Link.of("$HOST/todos/${it.id}"))
+//        }
 
         return ResponseEntity.ok(
             BaseResponse.ok(
                 message = "success",
-                data = todos
+                data = emptyList()
             )
         )
     }
@@ -43,19 +36,19 @@ class TodoController {
     fun postTodo(
         @RequestBody todoReq: TodoRequest,
     ): ResponseEntity<BaseResponse<String>> {
-        val todoId = todos.lastOrNull()?.id
-            ?: return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body(
-                    BaseResponse.error(
-                        code = HttpStatus.NO_CONTENT.value(),
-                        message = "전체 할일이 없습니다",
-                        error = "all todos is null"
-                    )
-                )
-
-        val todo = Todo(todoId + 1, todoReq.title)
-        todos.add(todo)
+//        val todoId = todos.lastOrNull()?.id
+//            ?: return ResponseEntity
+//                .status(HttpStatus.NO_CONTENT)
+//                .body(
+//                    BaseResponse.error(
+//                        code = HttpStatus.NO_CONTENT.value(),
+//                        message = "전체 할일이 없습니다",
+//                        error = "all todos is null"
+//                    )
+//                )
+//
+//        val todo = Todo(todoId + 1, todoReq.title)
+//        todos.add(todo)
 
         return ResponseEntity.ok(
             BaseResponse.ok(message = "success")
