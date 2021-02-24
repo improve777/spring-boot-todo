@@ -1,8 +1,10 @@
 package com.improve777.remindertodo.controller
 
 import com.improve777.remindertodo.BaseResponse
+import com.improve777.remindertodo.HOST
 import com.improve777.remindertodo.model.Todo
 import com.improve777.remindertodo.request.TodoRequest
+import org.springframework.hateoas.Link
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,8 +27,15 @@ class TodoController {
     fun getTodosByUserId(
         @PathVariable("id") id: Long,
     ): ResponseEntity<BaseResponse<List<Todo>>> {
+        todos.forEach {
+            it.add(Link.of("$HOST/todos/${it.id}"))
+        }
+
         return ResponseEntity.ok(
-            BaseResponse.ok(message = "success", data = todos)
+            BaseResponse.ok(
+                message = "success",
+                data = todos
+            )
         )
     }
 

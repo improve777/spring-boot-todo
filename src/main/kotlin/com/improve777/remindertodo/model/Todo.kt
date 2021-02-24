@@ -1,6 +1,7 @@
 package com.improve777.remindertodo.model
 
 import java.time.LocalDateTime
+import org.springframework.hateoas.RepresentationModel
 
 data class Todo(
     val id: Long,
@@ -9,4 +10,4 @@ data class Todo(
     val updated: LocalDateTime = LocalDateTime.now(),
     val deleted: LocalDateTime? = null,
     val isComplete: Boolean = false,
-)
+) : RepresentationModel<Todo>()
