@@ -1,5 +1,6 @@
 package com.improve777.remindertodo.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne
 import org.springframework.hateoas.RepresentationModel
 
 @Entity
+@JsonIgnoreProperties("user")
 data class Todo(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

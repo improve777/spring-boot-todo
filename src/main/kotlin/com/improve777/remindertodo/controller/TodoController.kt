@@ -4,6 +4,8 @@ import com.improve777.remindertodo.BaseResponse
 import com.improve777.remindertodo.HOST
 import com.improve777.remindertodo.model.Todo
 import com.improve777.remindertodo.request.TodoRequest
+import com.improve777.remindertodo.service.TodoService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.hateoas.Link
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,18 +18,23 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class TodoController {
 
+    @Autowired
+    private lateinit var todoService: TodoService
+
     @GetMapping("/todos/{id}")
     fun getTodosByUserId(
         @PathVariable("id") id: Long,
     ): ResponseEntity<BaseResponse<List<Todo>>> {
-//        todos.forEach {
-//            it.add(Link.of("$HOST/todos/${it.id}"))
-//        }
+        val todos = todoService.findTodosByUserId(id)
+
+        todos.forEach {
+            it.add(Link.of("$HOST/todos/${it.id}"))
+        }
 
         return ResponseEntity.ok(
             BaseResponse.ok(
                 message = "success",
-                data = emptyList()
+                data = todos
             )
         )
     }
@@ -36,22 +43,22 @@ class TodoController {
     fun postTodo(
         @RequestBody todoReq: TodoRequest,
     ): ResponseEntity<BaseResponse<String>> {
-//        val todoId = todos.lastOrNull()?.id
-//            ?: return ResponseEntity
-//                .status(HttpStatus.NO_CONTENT)
-//                .body(
-//                    BaseResponse.error(
-//                        code = HttpStatus.NO_CONTENT.value(),
-//                        message = "전체 할일이 없습니다",
-//                        error = "all todos is null"
-//                    )
-//                )
-//
-//        val todo = Todo(todoId + 1, todoReq.title)
-//        todos.add(todo)
+        val isSuccess = todoService.add(todoReq)
 
-        return ResponseEntity.ok(
-            BaseResponse.ok(message = "success")
-        )
+        return if (isSuccess) {
+            ResponseEntity.ok(
+                BaseResponse.ok(message = "success")
+            )
+        } else {
+            ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(
+                    BaseResponse.error(
+                        code = HttpStatus.NO_CONTENT.value(),
+                        message = "전체 할일이 없습니다",
+                        error = "all todos is null"
+                    )
+                )
+        }
     }
 }

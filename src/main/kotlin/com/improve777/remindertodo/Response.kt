@@ -5,7 +5,7 @@ data class BaseResponse<T>(
     val code: Int,
     val message: String,
     val data: T?,
-    val error: String?,
+    val error: String,
 ) {
 
     companion object {
@@ -14,7 +14,7 @@ data class BaseResponse<T>(
             code = code,
             message = message,
             data = data,
-            error = null,
+            error = "",
         )
 
         fun error(code: Int, message: String, error: String) = BaseResponse<String>(

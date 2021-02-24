@@ -27,7 +27,7 @@ class UserService {
         userRepository.save(user2)
 
         userRepository.findAll().forEach {
-            println("email = ${it.email}, todos size = ${it.todos.size}")
+            println("userId = ${it.id}, email = ${it.email}, todos size = ${it.todos.size}")
         }
     }
 }
