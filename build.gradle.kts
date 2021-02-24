@@ -24,6 +24,13 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
+
+    // swagger api doc
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+
+    // swagger 와 hateoas 충돌 문제
+    implementation("org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE")
 }
 
 tasks.withType<KotlinCompile> {
